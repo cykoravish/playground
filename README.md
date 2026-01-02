@@ -15,4 +15,5 @@ Think of this repo as a **central hub** for all my frontend experiments 🚀
 | # | Project Name | Description | Live Demo |
 |---|-------------|-------------|-----------|
 | 1 | Anonymous Messages | Send anonymous messages | 🔗 [Open](https://cykoravish.github.io/playground/anonymous-messages/) |
+| 2 | Maths Calculation Game | Know your calculation speed | 🔗 [Open](https://cykoravish.github.io/playground/math-quiz-game/) |
 
