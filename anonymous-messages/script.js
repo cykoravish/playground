@@ -16,7 +16,7 @@ sendBtn.addEventListener("click", async () => {
   status.className = "text-center text-sm mt-3 text-gray-600";
 
   try {
-    const res = await fetch("http://localhost:5000/send-message", {
+    const res = await fetch("https://anonymous-messages-hxo8.onrender.com/send-message", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

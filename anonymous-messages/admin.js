@@ -5,7 +5,7 @@ async function fetchMessages() {
   status.textContent = "Loading messages...";
 
   try {
-    const res = await fetch("http://localhost:5000/secret/messages");
+    const res = await fetch("https://anonymous-messages-hxo8.onrender.com/secret/messages");
     const data = await res.json();
 
     if (!data.success) {
