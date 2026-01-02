@@ -1,26 +1,70 @@
 import express from "express";
 import cors from "cors";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
+// MongoDB connection
+mongoose
+  .connect(process.env.MONGODB_URI)
+  .then(() => console.log("MongoDB connected ✅"))
+  .catch((err) => console.error("MongoDB error ❌", err));
+
+// Message schema
+const messageSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    default: "Anonymous",
+  },
+  message: {
+    type: String,
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+const Message = mongoose.model("Message", messageSchema);
+
 // test route
 app.get("/", (req, res) => {
   res.json({ message: "Backend is running 🚀" });
 });
 
-// receive message (temporary)
-app.post("/send-message", (req, res) => {
-  const { name, message } = req.body;
+// save message
+app.post("/send-message", async (req, res) => {
+  try {
+    const { name, message } = req.body;
 
-  console.log("Received:", { name, message });
+    if (!message) {
+      return res.status(400).json({ success: false, message: "Message required" });
+    }
 
-  res.json({
-    success: true,
-    message: "Message received (not saved yet)",
-  });
+    const newMessage = new Message({
+      name: name || "Anonymous",
+      message,
+    });
+
+    await newMessage.save();
+
+    res.json({
+      success: true,
+      message: "Message saved successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+  }
 });
 
 const PORT = 5000;
