@@ -9,8 +9,25 @@
 </head>
 
 <body>
-    <div class="min-h-screen w-full bg-black text-center">
+    <div class="min-h-screen w-full bg-black text-center p-4 text-white">
         <h1 class="text-gray-400 font-semibold text-3xl">Math Quiz Game</h1>
+        <!-- ### 1. Initial State
+        - Show **Start Game** button
+        - Score = `0`
+        - Timer = `30s`
+        - No question visible
+        - Input disabled         -->
+        <div class="flex justify-between mt-12">
+            <div class="flex gap-2 text-2xl text-gray-400">
+                <h2>Score: </h2>
+                <p>0</p>
+            </div>
+            <div class="flex gap-2 text-2xl text-gray-400">
+                <h2>Timer: </h2>
+                <p>30</p>
+            </div>
+        </div>
+        <button class="px-4 py-2 mt-12 border-2 text-2xl rounded-md hover:bg-gray-400 hover:text-white font-semibold">start game</button>
     </div>
     <script src="script.js"></script>
 </body>
