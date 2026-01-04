@@ -7,8 +7,11 @@ const gameCont = document.getElementById("gameCont");
 const ansSubmitBtn = document.getElementById("ansSubmit");
 let score = 0;
 let quesData = generateQuestion();
+let isGameActive = false;
 
 startGameBtn.addEventListener("click", () => {
+  isGameActive = true;
+
   score = 0;
   scoreDiv.textContent = score;
 
@@ -19,21 +22,14 @@ startGameBtn.addEventListener("click", () => {
   startTimer();
 });
 
-ansSubmitBtn.addEventListener("click", () => {
-  let answerVal = Number(answer.value);
+ansSubmitBtn.addEventListener("click", submitAnswer);
 
-  if (answerVal === quesData.result()) {
-    score++;
-    Toastify({ text: "Correct ✅", duration: 1500 }).showToast();
-  } else {
-    score = Math.max(0, score - 1);
-    Toastify({ text: "Wrong ❌", duration: 1500 }).showToast();
+answer.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    submitAnswer();
   }
-
-  scoreDiv.textContent = score;
-  answer.value = "";
-  loadQuestion();
 });
+
 
 function generateQuestion() {
   let operator = "+-"[Math.floor(Math.random() * 2)];
@@ -81,7 +77,26 @@ function loadQuestion() {
 }
 
 function endGame() {
+  isGameActive = false;
   gameCont.classList.add("hidden");
   startGameBtn.classList.remove("hidden");
   answer.value = "";
+}
+
+function submitAnswer() {
+  if (!isGameActive) return;
+
+  const answerVal = Number(answer.value);
+
+  if (answerVal === quesData.result()) {
+    score++;
+    Toastify({ text: "Correct ✅", duration: 1500 }).showToast();
+  } else {
+    score = Math.max(0, score - 1);
+    Toastify({ text: "Wrong ❌", duration: 1500 }).showToast();
+  }
+
+  scoreDiv.textContent = score;
+  answer.value = "";
+  loadQuestion();
 }
