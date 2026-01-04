@@ -5,6 +5,12 @@ const question = document.getElementById("question");
 const answer = document.getElementById("answer");
 const gameCont = document.getElementById("gameCont");
 const ansSubmitBtn = document.getElementById("ansSubmit");
+
+const bestScoreDiv = document.getElementById("bestScore");
+
+let bestScore = Number(localStorage.getItem("bestScore")) || 0;
+bestScoreDiv.textContent = bestScore;
+
 let score = 0;
 let quesData = generateQuestion();
 let isGameActive = false;
@@ -55,7 +61,7 @@ function generateQuestion() {
 }
 
 function startTimer() {
-  let timer = 30;
+  let timer = 80;
   timerDiv.textContent = timer;
 
   const timerId = setInterval(() => {
@@ -80,6 +86,32 @@ function endGame() {
   isGameActive = false;
   clearInterval(timerId);
   timerId = null;
+
+  if (score > bestScore) {
+    bestScore = score;
+    localStorage.setItem("bestScore", bestScore);
+    bestScoreDiv.textContent = bestScore;
+
+    Toastify({
+      text: "New Best Score 🎉",
+      duration: 1500,
+      gravity: "top",
+      position: "center",
+      close: false,
+      stopOnFocus: true,
+      style: {
+        background: "#111", // black
+        color: "#fff", // white text
+        border: "1px solid #333", // dark gray border
+        borderRadius: "10px",
+        padding: "12px 16px",
+        fontSize: "14px",
+        fontWeight: "500",
+        boxShadow: "0 10px 30px rgba(0,0,0,0.6)",
+      },
+    }).showToast();
+  }
+
   gameCont.classList.add("hidden");
   startGameBtn.classList.remove("hidden");
   answer.value = "";
