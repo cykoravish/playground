@@ -9,60 +9,30 @@ let score = 0;
 let quesData = generateQuestion();
 
 startGameBtn.addEventListener("click", () => {
-  scoreDiv.textContent = 0;
-  timerDiv.textContent = 30;
+  score = 0;
+  scoreDiv.textContent = score;
+
   startGameBtn.classList.add("hidden");
   gameCont.classList.remove("hidden");
 
   loadQuestion();
-
-  const timerId = startTimer();
-  setTimeout(() => {
-    clearInterval(timerId);
-    startGameBtn.classList.remove("hidden");
-    gameCont.classList.add("hidden");
-  }, 30000);
+  startTimer();
 });
 
 ansSubmitBtn.addEventListener("click", () => {
   let answerVal = Number(answer.value);
+
   if (answerVal === quesData.result()) {
     score++;
-    scoreDiv.textContent = score;
-    loadQuestion();
-    answer.value = "";
-    Toastify({
-      text: "This is a toast",
-      duration: 3000,
-      destination: "https://github.com/apvarun/toastify-js",
-      newWindow: true,
-      close: true,
-      gravity: "top", // `top` or `bottom`
-      position: "left", // `left`, `center` or `right`
-      stopOnFocus: true, // Prevents dismissing of toast on hover
-      style: {
-        background: "linear-gradient(to right, #00b09b, #96c93d)",
-      },
-      onClick: function () {}, // Callback after click
-    }).showToast();
+    Toastify({ text: "Correct ✅", duration: 1500 }).showToast();
   } else {
-    score--;
-    scoreDiv.textContent = score;
-    Toastify({
-      text: "This is a toast",
-      duration: 3000,
-      destination: "https://github.com/apvarun/toastify-js",
-      newWindow: true,
-      close: true,
-      gravity: "top", // `top` or `bottom`
-      position: "left", // `left`, `center` or `right`
-      stopOnFocus: true, // Prevents dismissing of toast on hover
-      style: {
-        background: "linear-gradient(to right, #00b09b, #96c93d)",
-      },
-      onClick: function () {}, // Callback after click
-    }).showToast();
+    score = Math.max(0, score - 1);
+    Toastify({ text: "Wrong ❌", duration: 1500 }).showToast();
   }
+
+  scoreDiv.textContent = score;
+  answer.value = "";
+  loadQuestion();
 });
 
 function generateQuestion() {
@@ -90,13 +60,28 @@ function generateQuestion() {
 
 function startTimer() {
   let timer = 30;
-  let timerId = setInterval(() => {
-    timerDiv.textContent = timer--;
+  timerDiv.textContent = timer;
+
+  const timerId = setInterval(() => {
+    timer--;
+    timerDiv.textContent = timer;
+
+    if (timer === 0) {
+      clearInterval(timerId);
+      endGame();
+    }
   }, 1000);
+
   return timerId;
 }
 
 function loadQuestion() {
   quesData = generateQuestion();
   question.textContent = `${quesData.num1} ${quesData.operator} ${quesData.num2} = `;
+}
+
+function endGame() {
+  gameCont.classList.add("hidden");
+  startGameBtn.classList.remove("hidden");
+  answer.value = "";
 }
