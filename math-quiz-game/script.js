@@ -1,6 +1,6 @@
 const startGameBtn = document.getElementById("startGame");
 const score = document.getElementById("score");
-const timer = document.getElementById("timer");
+const timerDiv = document.getElementById("timer");
 const question = document.getElementById("question");
 const answer = document.getElementById("answer");
 const gameCont = document.getElementById("gameCont");
@@ -29,3 +29,16 @@ function generateQuestion() {
     },
   };
 }
+
+function startTimer() {
+  let timer = 0;
+  let timerId = setInterval(() => {
+    timerDiv.textContent = timer++;
+  }, 1000);
+  return timerId;
+}
+const id = startTimer();
+
+setTimeout(() => {
+  clearInterval(id);
+}, 5000);
