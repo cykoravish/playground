@@ -5,6 +5,7 @@ const question = document.getElementById("question");
 const answer = document.getElementById("answer");
 const gameCont = document.getElementById("gameCont");
 const ansSubmitBtn = document.getElementById("ansSubmit");
+const rulesDiv = document.getElementById("rules");
 
 const bestScoreDiv = document.getElementById("bestScore");
 
@@ -24,6 +25,7 @@ startGameBtn.addEventListener("click", () => {
 
   startGameBtn.classList.add("hidden");
   gameCont.classList.remove("hidden");
+  rulesDiv.classList.add("hidden");
 
   loadQuestion();
   timerId = startTimer();
@@ -114,6 +116,7 @@ function endGame() {
 
   gameCont.classList.add("hidden");
   startGameBtn.classList.remove("hidden");
+  rulesDiv.classList.remove("hidden");
   answer.value = "";
 }
 
