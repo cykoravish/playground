@@ -1,49 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maths Quiz Game</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Math Quiz Game</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+  />
 </head>
 
-<body>
-    <div class="min-h-screen w-full bg-black text-center p-4 text-white">
-        <h1 class="text-gray-400 font-semibold text-3xl">Math Quiz Game</h1>
-        <!-- ### 1. Initial State
-        - Show **Start Game** button
-        - Score = `0`
-        - Timer = `30s`
-        - No question visible
-        - Input disabled         -->
-        <div class="flex justify-between mt-12">
-            <div class="flex gap-2 text-2xl text-gray-400">
-                <h2>Score: </h2>
-                <p id="score">0</p>
-            </div>
-            <div class="flex gap-2 text-2xl text-gray-400">
-                <h2>Timer: </h2>
-                <p id="timer">0</p>
-            </div>
-        </div>
-        <button id="startGame"
-            class="px-4 py-2 mt-12 border-2 text-2xl rounded-md hover:text-white font-semibold text-gray-400">start
-            game
-        </button>
-        <div id="gameCont" class="mt-12 text-2xl hidden">
-            <div class="flex justify-center gap-4">
-                <h2 id="question">2 + 2 = </h2>
-                <input id="answer" type="text" inputmode="numeric" pattern="[0-9]{2}" maxlength="2" autocomplete="off"
-                    class="w-12 rounded-md bg-black border-2 border-gray-400 text-center focus:outline-none focus:ring-0 focus:shadow-none" />
-            </div>
-            <button id="ansSubmit" class="px-4 py-2 mt-12 border-2 text-2xl rounded-md hover:text-white font-semibold text-gray-400">submit</button>
-        </div>
-    </div>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <script src="script.js"></script>
-</body>
+<body class="min-h-screen bg-black text-white flex items-center justify-center p-4">
 
+  <!-- Game Card -->
+  <div class="w-full max-w-md bg-[#0f0f0f] border border-gray-800 rounded-2xl p-6 shadow-xl">
+
+    <!-- Title -->
+    <h1 class="text-center text-2xl sm:text-3xl font-semibold text-gray-300">
+      Math Quiz Game
+    </h1>
+
+    <!-- Score & Timer -->
+    <div class="flex justify-between mt-6 text-gray-400 text-lg">
+      <div class="flex gap-2">
+        <span>Score:</span>
+        <span id="score">0</span>
+      </div>
+      <div class="flex gap-2">
+        <span>Time:</span>
+        <span id="timer">30</span>
+      </div>
+    </div>
+
+    <!-- Start Button -->
+    <div class="flex justify-center mt-8">
+      <button
+        id="startGame"
+        class="px-6 py-3 text-lg rounded-xl border border-gray-600
+               text-gray-300 font-medium
+               hover:bg-white hover:text-black
+               active:scale-95 transition-all duration-200"
+      >
+        Start Game
+      </button>
+    </div>
+
+    <!-- Game Container -->
+    <div id="gameCont" class="mt-8 hidden">
+
+      <!-- Question -->
+      <div class="flex items-center justify-center gap-4 text-2xl sm:text-3xl">
+        <span id="question" class="font-semibold">2 + 2 =</span>
+
+        <input
+          id="answer"
+          type="text"
+          inputmode="numeric"
+          maxlength="2"
+          autocomplete="off"
+          class="w-16 h-12 sm:w-20 sm:h-14
+                 bg-black border border-gray-600 rounded-xl
+                 text-center text-xl sm:text-2xl
+                 focus:outline-none focus:border-white transition"
+        />
+      </div>
+
+      <!-- Submit Button -->
+      <div class="flex justify-center mt-8">
+        <button
+          id="ansSubmit"
+          class="px-6 py-3 text-lg rounded-xl border border-gray-600
+                 text-gray-300 font-medium
+                 hover:bg-white hover:text-black
+                 active:scale-95 transition-all duration-200"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <script src="script.js"></script>
+</body>
 </html>
