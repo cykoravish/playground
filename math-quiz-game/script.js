@@ -8,10 +8,11 @@ const ansSubmitBtn = document.getElementById("ansSubmit");
 let score = 0;
 let quesData = generateQuestion();
 let isGameActive = false;
+let timerId = null;
 
 startGameBtn.addEventListener("click", () => {
+  if (timerId) clearInterval(timerId);
   isGameActive = true;
-
   score = 0;
   scoreDiv.textContent = score;
 
@@ -19,7 +20,7 @@ startGameBtn.addEventListener("click", () => {
   gameCont.classList.remove("hidden");
 
   loadQuestion();
-  startTimer();
+  timerId = startTimer();
 });
 
 ansSubmitBtn.addEventListener("click", submitAnswer);
@@ -29,7 +30,6 @@ answer.addEventListener("keydown", (e) => {
     submitAnswer();
   }
 });
-
 
 function generateQuestion() {
   let operator = "+-"[Math.floor(Math.random() * 2)];
@@ -78,6 +78,8 @@ function loadQuestion() {
 
 function endGame() {
   isGameActive = false;
+  clearInterval(timerId);
+  timerId = null;
   gameCont.classList.add("hidden");
   startGameBtn.classList.remove("hidden");
   answer.value = "";
@@ -90,10 +92,44 @@ function submitAnswer() {
 
   if (answerVal === quesData.result()) {
     score++;
-    Toastify({ text: "Correct ✅", duration: 1500 }).showToast();
+    Toastify({
+      text: "Correct ✅",
+      duration: 1500,
+      gravity: "top",
+      position: "center",
+      close: false,
+      stopOnFocus: true,
+      style: {
+        background: "#111", // black
+        color: "#fff", // white text
+        border: "1px solid #333", // dark gray border
+        borderRadius: "10px",
+        padding: "12px 16px",
+        fontSize: "14px",
+        fontWeight: "500",
+        boxShadow: "0 10px 30px rgba(0,0,0,0.6)",
+      },
+    }).showToast();
   } else {
     score = Math.max(0, score - 1);
-    Toastify({ text: "Wrong ❌", duration: 1500 }).showToast();
+    Toastify({
+      text: "Wrong ❌",
+      duration: 1500,
+      gravity: "top",
+      position: "center",
+      close: false,
+      stopOnFocus: true,
+      style: {
+        background: "#1a1a1a", // dark gray
+        color: "#e5e5e5",
+        border: "1px solid #444",
+        borderRadius: "10px",
+        padding: "12px 16px",
+        fontSize: "14px",
+        fontWeight: "500",
+        boxShadow: "0 10px 30px rgba(0,0,0,0.6)",
+      },
+    }).showToast();
   }
 
   scoreDiv.textContent = score;
