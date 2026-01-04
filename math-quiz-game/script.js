@@ -8,6 +8,17 @@ const gameCont = document.getElementById("gameCont");
 startGameBtn.addEventListener("click", () => {
   startGameBtn.classList.add("hidden");
   gameCont.classList.remove("hidden");
+
+  const quesData = generateQuestion();
+  question.textContent = `${quesData.num1} ${quesData.operator} ${quesData.num2} = `;
+
+  const timerId = startTimer();
+  setTimeout(() => {
+    clearInterval(timerId);
+  }, 30000);
+
+
+
 });
 
 function generateQuestion() {
@@ -24,6 +35,7 @@ function generateQuestion() {
   return {
     num1,
     num2,
+    operator,
     result() {
       return operator === "+" ? num1 + num2 : num1 - num2;
     },
@@ -31,14 +43,13 @@ function generateQuestion() {
 }
 
 function startTimer() {
-  let timer = 0;
+  let timer = 1;
   let timerId = setInterval(() => {
     timerDiv.textContent = timer++;
   }, 1000);
   return timerId;
 }
-const id = startTimer();
 
-setTimeout(() => {
-  clearInterval(id);
-}, 5000);
+function onSubmit(val){
+  
+}
