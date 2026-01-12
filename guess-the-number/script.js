@@ -10,5 +10,10 @@ submitBtn.addEventListener("click", ()=>{
         input.value = "";
         return;
     }
+    if(computerGuess > value){
+        console.log(`${value} is less than computer guessed value. Try bigger one`)
+    }else if(computerGuess < value){
+        console.log(`${value} is greater than computer guessed value`)
+    }
     input.value = "";
 })
