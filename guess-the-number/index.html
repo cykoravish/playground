@@ -5,15 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <title>guess the number</title>
 </head>
 
 <body>
-    <div class="h-screen w-full bg-black text-white text-center">
-        <h1>Guess the Number</h1>
-        <input type="text" id="inp" class="border">
-        <button id="submit">Submit</button>
+    <div class="h-screen w-full bg-black text-white text-center p-4">
+        <h1 class="mt-12 text-2xl sm:text-3xl font-semibold">Guess the Number</h1>
+        <input type="text" id="inp" class="border-2 border-gray-400 mt-12 rounded-full p-2">
+        <button id="submit" class="block text-center mx-auto mt-4 border-2 border-gray-400 px-4 py-2 rounded-lg">Submit</button>
     </div>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="script.js"></script>
 </body>
 
